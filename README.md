@@ -9,6 +9,6 @@ Equipe Siriema
 
 * Matheus Barrio
 
-* Thaís
+* Thais Ribeiro
 
 * Vilma Bezerra
