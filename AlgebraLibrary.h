@@ -1,0 +1,4 @@
+#ifndef ALGEBRALIBRARY_H
+#define ALGEBRALIBRARY_H
+
+#endif // ALGEBRALIBRARY_H
