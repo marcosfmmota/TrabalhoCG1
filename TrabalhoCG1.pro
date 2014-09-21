@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     arq_tratamento.cpp \
     face.cpp \
     vertice.cpp \
-    objeto.cpp
+    objeto.cpp \
+    transformationLibrary.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
