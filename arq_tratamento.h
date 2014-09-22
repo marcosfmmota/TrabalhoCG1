@@ -18,8 +18,8 @@ using namespace std;
 float parseFloat (string str);
 int parseInt (string str);
 vector<string> splitString(string str);
-void whichIsTheObject (vector<string> tokens, vector<Vertice> *vertices, vector<Face> *faces);
-void fileTreatment(string nome_arquivo_entrada, vector<Vertice> *vertices, vector<Face> *faces);
+void whichIsTheObject (vector<string> tokens, vector<Objeto> *objetos, vector<Vertice> *vertices);
+void fileTreatment(string nome_arquivo_entrada, vector<Objeto> *objetos, vector<Vertice> *vertices);
 void toVertice (vector<string> tokens);
 void toFace (vector<string>tokens);
 

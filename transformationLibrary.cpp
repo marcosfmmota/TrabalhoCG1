@@ -2,6 +2,7 @@
 #include "transformationLibrary.h"
 #include "matriz4.h"
 #include <math.h>
+#include <vector>
 Matriz4* loadIdentity(void)
 {
     Matriz4 tmatrix;
@@ -13,9 +14,21 @@ Matriz4* transfTranslate(double x, double y, double z, Objeto obj)
     Matriz4 *tmatrix=loadIdentity();
     Vector4 trans (x , y , z , 1);
     tmatrix->m[3]=trans;
-
+    vector<Vector4> vec;
     /* Implemente a multiplicação nos objetos aqui:*/
-
+//    for (int i=0; i<obj.faces.size();++i)
+//    {
+//        Vector4 aux;
+//        aux=obj.vertices.at(i);
+//        vec.insert(i,aux);
+//    }
+//    for(int i=0; i<obj.vertices.size();++i)
+//    {
+//        Vector4 aux;
+//        aux=tmatrix->m * vec.at(i);
+//        obj.vertices.insert(i,aux.transformarEmVertice());
+//    }
+//    obj.calcular_centro();
     return tmatrix;
 }
 

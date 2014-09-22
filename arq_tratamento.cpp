@@ -35,37 +35,28 @@ vector<string> splitString(string str) {
 }
 
 //Analisa a String para saber qual objeto deve ser instanciado
-void whichIsTheObject (vector<string> tokens, vector<Vertice> *vertices, vector<Face> *faces) {
-  if (tokens[0] == "v") {
-      Vertice *v = new Vertice(
-            parseFloat(tokens[1]),
+void whichIsTheObject (vector<string> tokens, vector<Objeto> *objetos, vector<Vertice> *vertices) {
+  if (tokens[0] == "o") {
+    Objeto *o = new Objeto();
+    objetos->push_back(*o);
+  } else if (tokens[0] == "v") {
+    Vertice *v = new Vertice(
+          parseFloat(tokens[1]),
           parseFloat(tokens[2]),
           parseFloat(tokens[3]));
-      vertices->push_back(*v);
+    objetos->back().vertices.push_back(*v);
+    vertices->push_back(*v);
   } else if (tokens[0] == "f") {
       Face *f = new Face(
-            vertices->at(parseInt(tokens[1])-1),
-          vertices->at(parseInt(tokens[2])-1),
-          vertices->at(parseInt(tokens[3])-1));
-      faces->push_back(*f);
+            vertices->at(parseInt(tokens[1]) - 1),
+            vertices->at(parseInt(tokens[2]) - 1),
+            vertices->at(parseInt(tokens[3]) - 1));
+      objetos->back().faces.push_back(*f);
   }
 }
 
-
-/*
-//Instancia o objeto vertice a partir das informa��es tiradas do arquivo
-void toVertice (vector<string> tokens) {
-
-}
-
-//Instancia o objeto face a partir das informa��es tiradas do arquivo
-void toFace (vector<string>tokens){
-
-}
-*/
-
 //Recebe nome do arquivo e transforma cada linha dele em uma string
-void fileTreatment(string nome_arquivo_entrada, vector<Vertice> *vertices, vector<Face> *faces){
+void fileTreatment(string nome_arquivo_entrada, vector<Objeto> *objetos, vector<Vertice> *vertices){
 
   ifstream inFile (nome_arquivo_entrada.c_str( ) );
 
@@ -75,11 +66,11 @@ void fileTreatment(string nome_arquivo_entrada, vector<Vertice> *vertices, vecto
            << nome_arquivo_entrada << " Saindo do programa!\n";
       return;
     }
-  //Lendo linha por linha ate o final do arquivo, transformando cada uma em string e chama a funcao para identificar o objeto a ser instanciado
+  //Lendo linha por linha at� o final do arquivo, transformando cada uma em string e chama a fun��o para identificar o objeto a ser instanciado
   while (!inFile.eof()) {
       for (std::string line; std::getline(inFile, line); ) {
           vector<string> tokens = splitString(line);
-          whichIsTheObject(tokens, vertices, faces);
+          whichIsTheObject(tokens, objetos, vertices);
         }
     }
 
@@ -88,3 +79,4 @@ void fileTreatment(string nome_arquivo_entrada, vector<Vertice> *vertices, vecto
   inFile.close( );
 
 }
+

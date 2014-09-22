@@ -73,6 +73,7 @@ public:
     friend Matriz4 operator * ( const double s, const Matriz4& m )
     { return m * s; }
 
+    //multiplicação matriz4 com matriz4
     Matriz4 operator * ( const Matriz4& m ) const {
         Matriz4  a(0.0);
 
@@ -83,8 +84,40 @@ public:
                 }
             }
         }
-
         return a;
+    }
+
+    //multiplicação matriz com vector4
+    Matriz4 operator *(const Vector4& v) const
+    {
+        Vector4 result;
+        for (int i=0; i<4;++i)
+        {
+            double aux;
+            Vector4 aux2;
+            aux2=m[i]*v;
+            aux=aux2.x+aux2.y+aux2.z+aux2.w;
+            //aviso: o código abaixo é intensionalmente
+            //ruim, mas o tempo não permite que eu faça
+            //melhor
+            if (i==0)
+            {
+                result.x=aux;
+            }
+            else if (i==1)
+            {
+                result.y=aux;
+            }
+            else if (i==2)
+            {
+                result.z=aux;
+            }
+            else
+            {
+                result.w=aux;
+            }
+        }
+        return result;
     }
 
     //Sobrecarga do operador =

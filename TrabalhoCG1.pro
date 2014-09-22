@@ -8,7 +8,7 @@ QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = TrabalhoDeCG
+TARGET = TrabalhoCG1
 CONFIG += console
 TEMPLATE = app
 

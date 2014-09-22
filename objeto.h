@@ -6,12 +6,16 @@
 
 #include <vector>
 
+using namespace std;
+
 class Objeto
 {
 public:
   Objeto();
   Vertice centro;
-  //void calcular_centro(vector<Face> *faces);
+  vector<Vertice> vertices;
+  vector<Face> faces;
+  void calcular_centro();
 };
 
 #endif // OBJETO_H

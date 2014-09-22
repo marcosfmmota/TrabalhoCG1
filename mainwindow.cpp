@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
   w = new GLWidget();
   setCentralWidget(w);
 
-  w->setMouseTracking(true);
+  w->setMouseTracking(false);
 }
 
 MainWindow::~MainWindow()

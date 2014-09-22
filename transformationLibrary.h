@@ -1,7 +1,7 @@
 #ifndef TRANSFORMATIONLIBRARY_H
 #define TRANSFORMATIONLIBRARY_H
 #include "matriz4.h"
-
+#include "objeto.h"
 Matriz4* loadIdentity (void);
 Matriz4* transfTranslate (double ,double, double, Objeto);
 Matriz4* transfTranslate(double, double, double,Objeto, Matriz4);
