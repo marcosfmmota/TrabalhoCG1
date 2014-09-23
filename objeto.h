@@ -15,7 +15,7 @@ public:
   Vertice centro;
   vector<Vertice> vertices;
   vector<Face> faces;
-  void calcular_centro();
+  Vertice calcular_centro();
 };
 
 #endif // OBJETO_H

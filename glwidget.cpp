@@ -1,6 +1,4 @@
 #include "glwidget.h"
-#include <QMouseEvent>
-#include <vector>
 
 GLWidget::GLWidget(QGLWidget *parent) :
   QGLWidget(parent)
@@ -18,13 +16,15 @@ void GLWidget::paintGL() {
 
   glBegin(GL_PROJECTION_MATRIX);
   glLoadIdentity();
-  glFrustum(-0.5,0.5,-0.5,0.5,0.5,10000);
-  glTranslated(0,grab,0);
+  if(ortho) glOrtho(-0.5,0.5,-0.5,0.5,0.5,1000000);
+  if(!ortho) glFrustum(-0.5,0.5,-0.5,0.5,0.5,1000000);
   glEnd();
 }
 
 void GLWidget::resizeGL(int w, int h) {
   qDebug() << "resize";
+  width = w;
+  height = h;
   int size = qMax(w,h);
   glViewport(-(size-w)/2,-(size-h)/2,size,size);
 }
@@ -32,6 +32,18 @@ void GLWidget::resizeGL(int w, int h) {
 void GLWidget::initializeGL() {
   glClearColor(0,0,0,1);
   glEnable(GL_DEPTH_TEST);
+}
+
+void GLWidget::keyPressEvent(QKeyEvent *event) {
+  cout << event->key();
+  if (event->key() == Qt::Key_O) {
+    ortho = true;
+    cout << "o";
+  }
+  if (event->key() == Qt::Key_P) {
+    ortho = false;
+    cout << "p";
+  }
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
@@ -55,41 +67,60 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
 
 void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-  int x,y;
-  if (event->pos().x()-move[0] != 0)
+  float x,y;
+  if (abs(event->pos().x()-move[0]) >= 50)
     x = (event->pos().x() - move[0])/abs(event->pos().x() - move[0]);
   else x = 0;
 
-  if (event->pos().y() - move[1])
+  if (abs(event->pos().y() - move[1]) >= 50)
     y = (-1)*(event->pos().y() - move[1])/abs(event->pos().y() - move[1]);
   else y = 0;
   cout << x << "," << y;
 
   if (left_pressed) {
-    cout << " TRANSLATE" << endl;
+    cout << " TRANSLATE" << endl;    
+    transfTranslate(x/100,y/100,0,&objetos);
   }
   if (right_pressed) {
     cout << " ROTATE" << endl;
+    calcular_centro();
+    transfTranslate(-centro.coord[0],-centro.coord[1],-centro.coord[2],&objetos);
+    transfRotate(0.001*y,1,0,0,&objetos);
+    transfRotate(-0.001*x,0,1,0,&objetos);
+    transfTranslate(centro.coord[0],centro.coord[1],centro.coord[2],&objetos);
   }
   if (mid_pressed) {
     cout << " SCALE" << endl;
+    calcular_centro();
+    transfTranslate(-centro.coord[0],-centro.coord[1],-centro.coord[2],&objetos);
+    transfRotate(0.001*y,0,0,1,&objetos);
+    transfTranslate(centro.coord[0],centro.coord[1],centro.coord[2],&objetos);
   }
-  paintGL();
+  refresh();
 }
 
 void GLWidget::mouseReleaseEvent(QMouseEvent *event)
 {
   left_pressed = right_pressed = mid_pressed = false;
   cout << "Released" << endl;
+  refresh();
 }
 
 void GLWidget::wheelEvent(QWheelEvent *event)
 {
   event->accept();
-  grab = event->delta()/120.0f;
+  grab = event->delta()/100.0f;
   cout << grab << endl;
-  paintGL();
-  grab = 0;
+
+  if (grab > 0) {
+      transfScale(grab,grab,1,&objetos);
+  } else {
+      grab = -1/grab;
+      transfScale(grab,grab,1,&objetos);
+  }
+
+  transfScale(grab,grab,grab,&objetos);
+  refresh();
   cout << grab << endl;
 }
 
@@ -110,4 +141,25 @@ void GLWidget::drawModel()
         glEnd();
     }
   }
+}
+
+void GLWidget::refresh()
+{
+  updateGL();
+  paintGL();
+  resizeGL(width, height);
+}
+
+void GLWidget::calcular_centro()
+{
+  float x = 0, y = 0, z = 0;
+  for (int i = 0; i < objetos.size(); i++) {
+    Vertice v = objetos.at(i).calcular_centro();
+    x = v.coord[0];
+    y = v.coord[1];
+    z = v.coord[2];
+  }
+  centro.coord[0] = x/objetos.size();
+  centro.coord[1] = y/objetos.size();
+  centro.coord[2] = z/objetos.size();
 }

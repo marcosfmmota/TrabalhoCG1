@@ -10,51 +10,30 @@
 
 #include "vector4.h"
 
+using namespace std;
+
 class Matriz4 {
 public:
     Vector4 m[4];
-    //Construtores
-    //identidade
-    Matriz4 () {
-        for(int i = 0; i<4; ++i) {
-            if(i == 0)
-                m[i] = Vector4(1,0,0,0);
-            if(i == 1)
-                m[i] = Vector4(0,1,0,0);
-            if(i == 2)
-                m[i] = Vector4(0,0,1,0);
-            if (i == 3)
-                m[i] = Vector4(0,0,0,1);
-        }
-    }
-
-    Matriz4 ( const Vector4& a, const Vector4& b, const Vector4& c, const Vector4& d )
-    { m[0] = a;  m[1] = b;  m[2] = c;  m[3] = d; }
-
-    Matriz4( const double d)  //Matriz diagonal
-    { m[0].x = d;  m[1].y = d;  m[2].z = d;  m[3].w = d; }
-
+    Matriz4 ();
+    Matriz4 (const Vector4& a, const Vector4& b, const Vector4& c, const Vector4& d);
+    Matriz4(const double d);
     Matriz4( double m00, double m10, double m20, double m30,
              double m01, double m11, double m21, double m31,
              double m02, double m12, double m22, double m32,
-             double m03, double m13, double m23, double m33 )
-    {
-        m[0] = Vector4( m00, m10, m20, m30 );
-        m[1] = Vector4( m01, m11, m21, m31 );
-        m[2] = Vector4( m02, m12, m22, m32 );
-        m[3] = Vector4( m03, m13, m23, m33 );
-    }
-
-    //Sobrecarga dos principais operadores de matrizes
-    //Subtração de matrizes
+             double m03, double m13, double m23, double m33 );
+    void setMatriz(double m00, double m10, double m20, double m30,
+                   double m01, double m11, double m21, double m31,
+                   double m02, double m12, double m22, double m32,
+                   double m03, double m13, double m23, double m33 );
+    Vector4 mult(Vector4 vetor);
 
     Matriz4 operator - ( const Matriz4& mat ) const
     { return Matriz4( m[0]-mat[0], m[1]-mat[1], m[2]-mat[2], m[3]-mat[3] ); }
 
     //Multiplicação por escalar
 
-    Matriz4 operator * ( const double s ) const
-    { return Matriz4( s*m[0], s*m[1], s*m[2], s*m[3] ); }
+    Matriz4 operator * ( const double s ) const;
 
     //Operação com matrizes
     Matriz4 operator + (const Matriz4& mat)
@@ -73,7 +52,6 @@ public:
     friend Matriz4 operator * ( const double s, const Matriz4& m )
     { return m * s; }
 
-    //multiplicação matriz4 com matriz4
     Matriz4 operator * ( const Matriz4& m ) const {
         Matriz4  a(0.0);
 
@@ -84,40 +62,8 @@ public:
                 }
             }
         }
-        return a;
-    }
 
-    //multiplicação matriz com vector4
-    Matriz4 operator *(const Vector4& v) const
-    {
-        Vector4 result;
-        for (int i=0; i<4;++i)
-        {
-            double aux;
-            Vector4 aux2;
-            aux2=m[i]*v;
-            aux=aux2.x+aux2.y+aux2.z+aux2.w;
-            //aviso: o código abaixo é intensionalmente
-            //ruim, mas o tempo não permite que eu faça
-            //melhor
-            if (i==0)
-            {
-                result.x=aux;
-            }
-            else if (i==1)
-            {
-                result.y=aux;
-            }
-            else if (i==2)
-            {
-                result.z=aux;
-            }
-            else
-            {
-                result.w=aux;
-            }
-        }
-        return result;
+        return a;
     }
 
     //Sobrecarga do operador =

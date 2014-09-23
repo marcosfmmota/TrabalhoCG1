@@ -8,8 +8,9 @@ QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = TrabalhoCG1
+TARGET = TrabalhoDeCG
 CONFIG += console
+CONFIG += static
 TEMPLATE = app
 
 
@@ -20,7 +21,8 @@ SOURCES += main.cpp\
     face.cpp \
     vertice.cpp \
     objeto.cpp \
-    transformationLibrary.cpp
+    transformationLibrary.cpp \
+    matriz4.cpp \
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -28,8 +30,8 @@ HEADERS  += mainwindow.h \
     face.h \
     vertice.h \
     objeto.h \
+    transformationLibrary.h \
     vector4.h \
     matriz4.h \
-    transformationLibrary.h
 
 FORMS    += mainwindow.ui

@@ -7,7 +7,8 @@
 
 #ifndef VECTOR_H_
 #define VECTOR_H_
-#include"vertice.h"
+
+using namespace std;
 
 class Vector4 {
 public:
@@ -40,41 +41,13 @@ public:
     //sobrecarga de operadores de indexação
     double& operator [] ( int i ) { return *(&x + i); }
     const double operator [] ( int i ) const { return *(&x + i); }
-    //multiplicação por escalar
+
     Vector4 operator * ( const double s ) const
         { return Vector4( s*x, s*y, s*z, s*w ); }
 
     friend Vector4 operator * ( const double s, const Vector4& v )
         { return v * s; }
-    //multiplicação vetor por vetor
-    Vector4 operator * ( const Vector4& v ) const
-        { return vec4( x*v.x, y*v.y, z*v.z, w*v.z ); }
-
     //sobrecarga do operador = para copiar valores
-    Vector4& operator =(const Vector4& v)
-    {
-        x=v.x;
-        y=v.y;
-        z=v.z;
-        w=v.w;
-        return *this;
-    }
-
-    //sobrecarga do operador = para copiar valores de vertice em um vector4
-    Vector4& operator =(const Vertice& vet)
-    {
-        x=vet.coord[1];
-        y=vet.coord[2];
-        z=vet.coord[3];
-        w=1;
-        return *this;
-    }
-
-    Vertice transformarEmVertice ()
-    {
-        Vertice vert(x,y,z);
-        return vert;
-    }
 };
 
 #endif /* VECTOR_H_ */

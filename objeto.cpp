@@ -4,7 +4,7 @@ Objeto::Objeto()
 {
 }
 
-void Objeto::calcular_centro()
+Vertice Objeto::calcular_centro()
 {
   float x,y,z;
   x = y = z = 0;
@@ -21,4 +21,5 @@ void Objeto::calcular_centro()
   centro.coord[1] = y;
   centro.coord[2] = z;
 
+  return centro;
 }
