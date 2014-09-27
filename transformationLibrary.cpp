@@ -39,7 +39,7 @@ Matriz4* transfTranslate(double x, double y, double z, vector<Objeto> *obj, Matr
 
 Matriz4* transfRotate(double angulo, int x, int y, int z, vector<Objeto> *obj)
 {
-    double rads=angulo*(180/M_PI);
+    double rads=angulo*(M_PI/180);
     Matriz4 m;
     if (x ==1 && y== 0 && z==0)
     {

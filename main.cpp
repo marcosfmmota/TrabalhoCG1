@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
   vector<Objeto> objetos;
   vector<Vertice> vertices;
 
-  fileTreatment("/home/marcosf/TrabalhoCG1/house.obj", &objetos, &vertices);
+  fileTreatment("/home/marcosf/TrabalhoCG1/objs/mordecai.obj", &objetos, &vertices);
 
   QApplication a(argc, argv);
   MainWindow w;
