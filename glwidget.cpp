@@ -84,11 +84,11 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
   if (right_pressed) {
     cout << " ROTATE" << endl;
     calcular_centro();
-    transfRotate(-0.001*x,0,1,0,&objetos,*transfRotate(0.001*y,1,0,0,&objetos,
-                                                       *transfTranslate(
-                                                           -centro.coord[0],-centro.coord[1],
-                                                            -centro.coord[2],&objetos)));
-    transfTranslate(centro.coord[0],centro.coord[1],centro.coord[2],&objetos);
+    transfTranslate(centro.coord[0],centro.coord[1],centro.coord[2],&objetos,
+            *transfRotate(x*0.0001,0,1,0,&objetos,*transfRotate(y*0.0001,1,0,0,&objetos,
+                        *transfTranslate(
+                         -centro.coord[0],-centro.coord[1],
+                           -centro.coord[2],&objetos))));
   }
   if (mid_pressed) {
     cout << " SCALE" << endl;

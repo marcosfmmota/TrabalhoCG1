@@ -81,8 +81,8 @@ Matriz4* transfRotate(double angulo, int x, int y, int z, vector<Objeto> *obj)
 
 Matriz4* transfRotate(double angulo, int x, int y, int z, vector<Objeto> *obj, Matriz4 m)
 {
-    double rads=angulo*(180/M_PI);
-    Matriz4 rot;
+    double rads=angulo*(M_PI/180);
+
     if (x ==1 && y== 0 && z==0)
     {
         Matriz4 rot(1,0,0,0,

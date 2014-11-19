@@ -23,6 +23,7 @@ SOURCES += main.cpp\
     objeto.cpp \
     transformationLibrary.cpp \
     matriz4.cpp \
+    teste.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -33,5 +34,6 @@ HEADERS  += mainwindow.h \
     transformationLibrary.h \
     vector4.h \
     matriz4.h \
+    teste.h
 
 FORMS    += mainwindow.ui
